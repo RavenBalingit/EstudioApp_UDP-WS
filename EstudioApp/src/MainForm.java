@@ -42,7 +42,6 @@ public class MainForm extends JFrame {
 
     private void abrirVentanaSeleccion(BloqueTematico bloque) {
         this.setVisible(false);
-        // Pasamos 'this' (MainForm) como padre a SeleccionTipoEjercicioForm
         new SeleccionTipoEjercicioForm(this, bloque).setVisible(true);
     }
 }

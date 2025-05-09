@@ -4,7 +4,7 @@ import java.util.Map;
 public class EjercicioRellenarCodigo extends ItemEstudio {
     private String codigoConHuecos;
     private List<String> elementosSugeridos;
-    private Map<Integer, String> soluciones; // Clave: número de hueco, Valor: palabra correcta
+    private Map<Integer, String> soluciones;
 
     public EjercicioRellenarCodigo(String enunciado, String codigoConHuecos, List<String> elementosSugeridos, Map<Integer, String> soluciones) {
         super(enunciado);
@@ -30,22 +30,16 @@ public class EjercicioRellenarCodigo extends ItemEstudio {
     }
 
     public boolean verificarRespuestas(Map<Integer, String> respuestasUsuario) {
-        // Primero, verifica si el número de respuestas proporcionadas coincide con el número de soluciones esperadas.
-        // Esto podría ser opcional si permites respuestas parciales, pero para una verificación completa es útil.
-        // if (respuestasUsuario.size() != soluciones.size()) {
-        // return false;
-        // }
 
         for (Map.Entry<Integer, String> solucionEntry : soluciones.entrySet()) {
             Integer numeroHueco = solucionEntry.getKey();
             String respuestaCorrecta = solucionEntry.getValue();
             String respuestaUsuario = respuestasUsuario.get(numeroHueco);
 
-            // Si no hay respuesta para un hueco o la respuesta no coincide (ignorando mayúsculas/minúsculas y espacios)
             if (respuestaUsuario == null || !respuestaCorrecta.trim().equalsIgnoreCase(respuestaUsuario.trim())) {
                 return false;
             }
         }
-        return true; // Todas las respuestas proporcionadas coinciden con las soluciones
+        return true; 
     }
 }

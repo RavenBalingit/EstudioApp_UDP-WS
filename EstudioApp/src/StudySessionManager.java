@@ -9,20 +9,16 @@ public class StudySessionManager {
     private List<EjercicioRellenarCodigo> ejerciciosRellenarActuales;
     private int indiceActual;
 
-    // --- NUEVOS MIEMBROS PARA ESTADÍSTICAS ---
     private int respuestasCorrectas;
     private int respuestasIncorrectas;
-    // --- FIN NUEVOS MIEMBROS ---
 
     public StudySessionManager(BloqueTematico bloque, TipoEjercicio tipo) {
         this.bloqueTematico = bloque;
         this.tipoEjercicio = tipo;
         this.bancoDeEstudio = new BancoDeEstudio();
         this.indiceActual = 0;
-        // --- INICIALIZAR CONTADORES ---
         this.respuestasCorrectas = 0;
         this.respuestasIncorrectas = 0;
-        // --- FIN INICIALIZACIÓN ---
         cargarEjercicios();
     }
 
@@ -57,7 +53,6 @@ public class StudySessionManager {
     }
 
     public void avanzarSiguienteEjercicio() {
-        // El avance se hace después de registrar la respuesta del ejercicio actual.
         indiceActual++;
     }
 
@@ -86,13 +81,7 @@ public class StudySessionManager {
     public int getIndiceEjercicioActual() {
         return indiceActual;
     }
-
-    // --- NUEVOS MÉTODOS PARA ESTADÍSTICAS ---
-    /**
-     * Registra si la respuesta al ejercicio actual fue correcta o incorrecta.
-     * Este método se llama DESPUÉS de que el usuario verifica su respuesta.
-     * @param correcta true si la respuesta fue correcta, false en caso contrario.
-     */
+    
     public void registrarRespuesta(boolean correcta) {
         if (correcta) {
             respuestasCorrectas++;
@@ -116,9 +105,8 @@ public class StudySessionManager {
     public double getPorcentajeAciertos() {
         int totalIntentos = getTotalIntentos();
         if (totalIntentos == 0) {
-            return 0.0; // Evitar división por cero
+            return 0.0; 
         }
         return ((double) respuestasCorrectas / totalIntentos) * 100.0;
     }
-    // --- FIN NUEVOS MÉTODOS ---
 }

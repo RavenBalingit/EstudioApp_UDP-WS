@@ -6,11 +6,11 @@ import java.awt.event.WindowEvent;
 public class SeleccionTipoEjercicioForm extends JDialog {
 
     private BloqueTematico bloqueSeleccionado;
-    private JFrame parentForm; // Referencia al MainForm
+    private JFrame parentForm; 
 
     public SeleccionTipoEjercicioForm(JFrame parent, BloqueTematico bloque) {
         super(parent, "Seleccionar Tipo de Ejercicio", true);
-        this.parentForm = parent; // Guardar la referencia al MainForm
+        this.parentForm = parent; 
         this.bloqueSeleccionado = bloque;
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -41,12 +41,9 @@ public class SeleccionTipoEjercicioForm extends JDialog {
         add(lblTitle, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
 
-        // Listener para re-mostrar MainForm cuando esta ventana se cierre
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                // Solo mostrar parentForm si QuestionDisplayForm no está activa
-                // Esto es un poco heurístico; una mejor gestión del estado de las ventanas sería más robusta.
                 boolean questionDisplayActive = false;
                 for (Window window : Window.getWindows()) {
                     if (window instanceof QuestionDisplayForm && window.isVisible()) {
@@ -59,7 +56,7 @@ public class SeleccionTipoEjercicioForm extends JDialog {
                 }
             }
             @Override
-            public void windowClosing(WindowEvent e) { // También al intentar cerrar con la 'X'
+            public void windowClosing(WindowEvent e) { 
                 if (parentForm != null) {
                     parentForm.setVisible(true);
                 }
@@ -68,20 +65,19 @@ public class SeleccionTipoEjercicioForm extends JDialog {
     }
 
     private void iniciarSesionEstudio(TipoEjercicio tipo) {
-        dispose(); // Cierra esta ventana de selección
+        dispose();
         StudySessionManager manager = new StudySessionManager(bloqueSeleccionado, tipo);
 
         if (!manager.hayEjerciciosDisponibles()) {
-            JOptionPane.showMessageDialog(parentForm, // Usar parentForm para el diálogo
+            JOptionPane.showMessageDialog(parentForm, 
                 "No hay ejercicios disponibles para la selección: " + bloqueSeleccionado + " - " + tipo,
                 "Sin Ejercicios",
                 JOptionPane.INFORMATION_MESSAGE);
             if (parentForm != null) {
-                parentForm.setVisible(true); // Mostrar MainForm de nuevo
+                parentForm.setVisible(true); 
             }
             return;
         }
-        // Pasar parentForm a QuestionDisplayForm
         new QuestionDisplayForm(parentForm, manager, true).setVisible(true);
     }
 }

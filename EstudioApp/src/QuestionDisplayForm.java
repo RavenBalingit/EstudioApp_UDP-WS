@@ -118,7 +118,7 @@ public class QuestionDisplayForm extends JDialog {
         btnVerificar.addActionListener(e -> verificarRespuesta());
         btnSiguiente.addActionListener(e -> {
             if (manager != null) {
-                manager.avanzarSiguienteEjercicio(); // Mover al siguiente después de que el usuario lo indique
+                manager.avanzarSiguienteEjercicio();
                 cargarSiguientePregunta();
             }
         });
@@ -135,10 +135,9 @@ public class QuestionDisplayForm extends JDialog {
 
     private void cargarSiguientePregunta() {
         if (manager == null) return;
-        ItemEstudio item = manager.getEjercicioActual(); // Obtiene el ejercicio en el índice actual
+        ItemEstudio item = manager.getEjercicioActual(); 
 
-        // --- INICIO MODIFICACIÓN: RESUMEN DE SESIÓN ---
-        if (item == null) { // Ya no hay más ejercicios
+        if (item == null) { 
             int correctas = manager.getRespuestasCorrectas();
             int incorrectas = manager.getRespuestasIncorrectas();
             int total = manager.getTotalIntentos();
@@ -158,11 +157,9 @@ public class QuestionDisplayForm extends JDialog {
             );
 
             JOptionPane.showMessageDialog(this, resumen, "Fin de la Sesión", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Cierra la ventana de estudio
-            // El listener de la ventana se encargará de mostrar parentForm si existe
+            dispose(); 
             return;
         }
-        // --- FIN MODIFICACIÓN: RESUMEN DE SESIÓN ---
 
         currentEjercicioRellenar = null;
         droppedWordsMap.clear();
@@ -173,8 +170,8 @@ public class QuestionDisplayForm extends JDialog {
         lblFeedback.setForeground(Color.BLACK);
         lblFeedback.setVisible(true);
 
-        btnVerificar.setEnabled(true); // Siempre habilitar verificar para el nuevo ejercicio
-        btnSiguiente.setEnabled(false); // Siguiente se habilita después de verificar
+        btnVerificar.setEnabled(true); 
+        btnSiguiente.setEnabled(false); 
         scrollPaneSugerencias.setVisible(false);
 
         lblContadorPreguntas.setText("Ejercicio " + (manager.getIndiceEjercicioActual() + 1) + " de " + manager.getNumeroTotalEjercicios());
@@ -187,7 +184,6 @@ public class QuestionDisplayForm extends JDialog {
             mostrarEjercicioRellenar(currentEjercicioRellenar);
         }
 
-        // El texto del botón "Siguiente" se actualiza en verificarRespuesta o aquí si es el último
          if (manager.esUltimoEjercicio() && manager.getIndiceEjercicioActual() == manager.getNumeroTotalEjercicios() -1) {
             btnSiguiente.setText("Finalizar Sesión");
         } else {
@@ -323,19 +319,18 @@ public class QuestionDisplayForm extends JDialog {
             return;
         }
 
-        boolean fueRespuestaCorrecta = false; // Para registrar en el manager
+        boolean fueRespuestaCorrecta = false; 
 
         if (itemActual instanceof PreguntaTest) {
             PreguntaTest pregunta = (PreguntaTest) itemActual;
             if (grupoOpcionesTest.getSelection() == null) {
                 lblFeedback.setText("Por favor, selecciona una opción.");
                 lblFeedback.setForeground(Color.ORANGE);
-                // No registrar respuesta, no cambiar botones, el usuario debe reintentar la selección
-                if (lblFeedback.getParent() != null) { // Actualizar feedback
+                if (lblFeedback.getParent() != null) { 
                     lblFeedback.getParent().revalidate();
                     lblFeedback.getParent().repaint();
                 }
-                return; // Salir sin registrar ni cambiar estado de botones principales
+                return; 
             }
             String respuestaUsuario = "";
             for (JRadioButton radio : radioButtonsOpciones) {
@@ -345,7 +340,7 @@ public class QuestionDisplayForm extends JDialog {
                     break;
                 }
             }
-            fueRespuestaCorrecta = pregunta.verificarRespuesta(respuestaUsuario); // Guardar resultado
+            fueRespuestaCorrecta = pregunta.verificarRespuesta(respuestaUsuario); 
             if (fueRespuestaCorrecta) {
                 lblFeedback.setText("¡Correcto!");
                 lblFeedback.setForeground(new Color(0, 128, 0));
@@ -390,7 +385,7 @@ public class QuestionDisplayForm extends JDialog {
                     }
                 }
             }
-            fueRespuestaCorrecta = todosLosHuecosCorrectos; // Guardar resultado
+            fueRespuestaCorrecta = todosLosHuecosCorrectos; 
             if (fueRespuestaCorrecta) {
                 lblFeedback.setText("¡Todos los huecos son correctos!");
                 lblFeedback.setForeground(new Color(0, 128, 0));
@@ -402,18 +397,14 @@ public class QuestionDisplayForm extends JDialog {
             }
         }
 
-        // --- INICIO MODIFICACIÓN: REGISTRAR RESPUESTA ---
         if (manager != null) {
             manager.registrarRespuesta(fueRespuestaCorrecta);
         }
-        // --- FIN MODIFICACIÓN: REGISTRAR RESPUESTA ---
 
-        btnVerificar.setEnabled(false); // Deshabilitar verificar después de un intento
-        btnSiguiente.setEnabled(true);  // Habilitar siguiente
+        btnVerificar.setEnabled(false);
+        btnSiguiente.setEnabled(true);  
 
-        // Actualizar texto del botón "Siguiente" si es el último ejercicio
         if (manager != null && manager.esUltimoEjercicio() && manager.getIndiceEjercicioActual() == manager.getNumeroTotalEjercicios() -1) {
-             // Comprobación más robusta para el último ejercicio
             btnSiguiente.setText("Finalizar Sesión");
         } else {
             btnSiguiente.setText("Siguiente Ejercicio");
@@ -426,7 +417,6 @@ public class QuestionDisplayForm extends JDialog {
         }
     }
 
-    // Clase interna DropTargetPanel (sin cambios respecto a la versión anterior con D&D y scroll)
     private class DropTargetPanel extends JPanel {
         private JLabel wordLabel;
         private int blankNumber;
@@ -496,7 +486,6 @@ public class QuestionDisplayForm extends JDialog {
         }
     }
 
-    // Clase interna WordSourceTransferHandler (sin cambios)
     private class WordSourceTransferHandler extends TransferHandler {
         private final String word;
 
@@ -516,11 +505,9 @@ public class QuestionDisplayForm extends JDialog {
 
         @Override
         protected void exportDone(JComponent source, Transferable data, int action) {
-            // No action needed for COPY
         }
     }
     
-    // Clase interna TransferableWord (sin cambios)
     public static class TransferableWord implements Transferable {
         public static final DataFlavor WORD_FLAVOR;
         static {
@@ -564,7 +551,6 @@ public class QuestionDisplayForm extends JDialog {
         public JLabel getSourceLabel() { return sourceLabel; }
     }
 
-    // Clase interna WordDropTargetTransferHandler (sin cambios)
     private class WordDropTargetTransferHandler extends TransferHandler {
         @Override
         public boolean canImport(TransferSupport support) {

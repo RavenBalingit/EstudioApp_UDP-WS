@@ -2,7 +2,7 @@ import java.util.List;
 
 public class PreguntaTest extends ItemEstudio {
     private List<String> opciones;
-    private String respuestaCorrecta; // Almacena el texto exacto de la respuesta correcta
+    private String respuestaCorrecta; 
 
     public PreguntaTest(String enunciado, List<String> opciones, String respuestaCorrecta) {
         super(enunciado);
