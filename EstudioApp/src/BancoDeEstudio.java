@@ -579,7 +579,7 @@ public class BancoDeEstudio {
         preguntasTestWebSockets.add(new PreguntaTest(
             "45. ¿Qué librería es popular para WebSockets en Unity, especialmente si se necesita compatibilidad con WebGL o características de servidor?",
             Arrays.asList("Socket.IO for Unity", "WebSocketSharp", "UnityNetworking (HLAPI/LLAPI)", "Photon Unity Networking"),
-            "WebSocketSharp"
+            "WebSocketSharp" // Aunque NativeWebSocket también es una opción para WebGL, WebSocketSharp es más general.
         ));
         preguntasTestWebSockets.add(new PreguntaTest(
             "46. Si estás desarrollando un juego para WebGL en Unity y necesitas WebSockets, ¿por qué podrías necesitar una librería específica como NativeWebSocket?",
@@ -725,6 +725,368 @@ public class BancoDeEstudio {
                 "Un error que ocurre cuando el servidor está sobrecargado."
             ),
             "Mensajes de control para mantener viva la conexión y comprobar su estado."
+        ));
+
+        // --- Nuevas 40 preguntas añadidas ---
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "61. ¿Qué encabezado HTTP es crucial en la solicitud inicial del cliente para indicar que desea actualizar a WebSockets?",
+            Arrays.asList(
+                "Connection: keep-alive",
+                "Upgrade: websocket",
+                "Sec-WebSocket-Version: 13",
+                "Host: server.example.com"
+            ),
+            "Upgrade: websocket"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "62. ¿Qué encabezado HTTP debe incluir el servidor en su respuesta para aceptar la actualización a WebSockets?",
+            Arrays.asList(
+                "Connection: Upgrade",
+                "Upgrade: websocket",
+                "Sec-WebSocket-Accept: [clave_derivada]",
+                "Todos los anteriores"
+            ),
+            "Todos los anteriores"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "63. ¿Cuál es el propósito principal del encabezado 'Sec-WebSocket-Key' enviado por el cliente?",
+            Arrays.asList(
+                "Es una clave de encriptación para los datos.",
+                "Ayuda al servidor a verificar que entiende el protocolo WebSocket.",
+                "Identifica de forma única al cliente.",
+                "Especifica la subprotocolo deseado."
+            ),
+            "Ayuda al servidor a verificar que entiende el protocolo WebSocket."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "64. El valor del encabezado 'Sec-WebSocket-Accept' devuelto por el servidor se deriva de:",
+            Arrays.asList(
+                "Una cadena aleatoria generada por el servidor.",
+                "La concatenación de 'Sec-WebSocket-Key' y un GUID específico del estándar WebSocket, y luego hasheado con SHA-1 y codificado en Base64.",
+                "La dirección IP del cliente.",
+                "La versión del navegador del cliente."
+            ),
+            "La concatenación de 'Sec-WebSocket-Key' y un GUID específico del estándar WebSocket, y luego hasheado con SHA-1 y codificado en Base64."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "65. Una vez establecida la conexión WebSocket, ¿cómo se envían los datos?",
+            Arrays.asList(
+                "Como una serie de peticiones HTTP POST.",
+                "A través de 'frames' o tramas binarias.",
+                "Como datagramas UDP.",
+                "Adjuntos a correos electrónicos."
+            ),
+            "A través de 'frames' o tramas binarias."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "66. ¿Qué indica el bit 'FIN' en una trama WebSocket?",
+            Arrays.asList(
+                "Que la conexión debe finalizar.",
+                "Que esta es la trama final de un mensaje (que podría estar fragmentado).",
+                "Que la trama está corrupta.",
+                "Que la trama es de tipo binario."
+            ),
+            "Que esta es la trama final de un mensaje (que podría estar fragmentado)."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "67. ¿Para qué sirve la fragmentación de mensajes en WebSockets?",
+            Arrays.asList(
+                "Para encriptar los mensajes.",
+                "Para permitir el envío de mensajes grandes sin monopolizar el canal o sin saber el tamaño total de antemano.",
+                "Para comprimir los mensajes.",
+                "Para enviar mensajes a múltiples destinatarios."
+            ),
+            "Para permitir el envío de mensajes grandes sin monopolizar el canal o sin saber el tamaño total de antemano."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "68. ¿Qué tipo de trama WebSocket se utiliza para indicar el cierre de la conexión por parte de un extremo?",
+            Arrays.asList("Continuación", "Texto", "Binario", "Cierre (Close)"),
+            "Cierre (Close)"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "69. ¿Un cliente WebSocket puede especificar subprotocolos preferidos (ej. 'json', 'xml') durante el handshake?",
+            Arrays.asList(
+                "No, el protocolo es fijo.",
+                "Sí, usando el encabezado 'Sec-WebSocket-Protocol'.",
+                "Sí, pero solo después de que la conexión esté abierta.",
+                "Solo si el servidor lo solicita explícitamente."
+            ),
+            "Sí, usando el encabezado 'Sec-WebSocket-Protocol'."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "70. Si un servidor soporta uno de los subprotocolos solicitados por el cliente, ¿cómo lo indica?",
+            Arrays.asList(
+                "Enviando un mensaje de texto con el nombre del protocolo.",
+                "Incluyendo el subprotocolo elegido en el encabezado 'Sec-WebSocket-Protocol' de su respuesta.",
+                "No necesita indicarlo, el cliente lo asume.",
+                "Enviando una trama binaria especial."
+            ),
+            "Incluyendo el subprotocolo elegido en el encabezado 'Sec-WebSocket-Protocol' de su respuesta."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "71. ¿Qué es una 'extensión' de WebSocket, como 'permessage-deflate'?",
+            Arrays.asList(
+                "Un nuevo tipo de mensaje.",
+                "Un mecanismo para añadir funcionalidades al protocolo base, como la compresión.",
+                "Un subprotocolo específico.",
+                "Una forma de aumentar el tamaño máximo del mensaje."
+            ),
+            "Un mecanismo para añadir funcionalidades al protocolo base, como la compresión."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "72. ¿Cuál es el propósito de las tramas Ping y Pong en WebSockets?",
+            Arrays.asList(
+                "Enviar datos de juego.",
+                "Verificar que la conexión sigue viva y medir la latencia.",
+                "Negociar la compresión.",
+                "Indicar errores en la transmisión."
+            ),
+            "Verificar que la conexión sigue viva y medir la latencia."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "73. Si un extremo envía una trama Ping, el otro extremo debe responder con una trama:",
+            Arrays.asList("Ping", "Pong con los mismos datos de aplicación", "Ack", "Close"),
+            "Pong con los mismos datos de aplicación"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "74. ¿Los WebSockets manejan automáticamente la retransmisión de paquetes perdidos?",
+            Arrays.asList(
+                "Sí, es una característica incorporada.",
+                "No, eso es responsabilidad de TCP, que es el protocolo subyacente.",
+                "Solo si se utiliza wss://.",
+                "Depende de la librería de WebSocket utilizada."
+            ),
+            "No, eso es responsabilidad de TCP, que es el protocolo subyacente."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "75. ¿Cuál es el tamaño máximo teórico de una trama WebSocket (payload length)?",
+            Arrays.asList("1KB", "1MB", "64KB", "2^63 bytes (muy grande)"),
+            "2^63 bytes (muy grande)"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "76. En ClientWebSocket, ¿qué propiedad indica el estado actual de la conexión (ej. Open, Closed, Connecting)?",
+            Arrays.asList("ConnectionState", "Status", "State", "WebSocketState"),
+            "State"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "77. Al usar `ClientWebSocket.ReceiveAsync`, si el buffer proporcionado es más pequeño que el mensaje recibido, ¿qué sucede?",
+            Arrays.asList(
+                "Se lanza una excepción.",
+                "Se reciben múltiples fragmentos, y `EndOfMessage` será `false` hasta el último fragmento.",
+                "El mensaje se trunca.",
+                "La conexión se cierra."
+            ),
+            "Se reciben múltiples fragmentos, y `EndOfMessage` será `false` hasta el último fragmento."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "78. ¿Es posible que un servidor WebSocket envíe un mensaje de cierre sin que el cliente lo haya solicitado?",
+            Arrays.asList(
+                "No, el cierre siempre debe ser iniciado por el cliente.",
+                "Sí, el servidor puede iniciar el cierre de la conexión.",
+                "Solo si la conexión ha estado inactiva durante mucho tiempo.",
+                "Solo si el mensaje es de tipo texto."
+            ),
+            "Sí, el servidor puede iniciar el cierre de la conexión."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "79. ¿Qué consideración de seguridad es importante al manejar datos recibidos de un WebSocket no confiable?",
+            Arrays.asList(
+                "Asumir que todos los datos son seguros.",
+                "Validar y sanitizar siempre los datos para prevenir ataques XSS u otros.",
+                "Deshabilitar JavaScript en el cliente.",
+                "Usar solo conexiones ws://."
+            ),
+            "Validar y sanitizar siempre los datos para prevenir ataques XSS u otros."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "80. ¿Por qué se prefiere WebSockets sobre HTTP Polling para aplicaciones en tiempo real?",
+            Arrays.asList(
+                "Porque HTTP Polling es más seguro.",
+                "WebSockets reduce la latencia y la sobrecarga al mantener una conexión persistente.",
+                "WebSockets es más fácil de implementar.",
+                "HTTP Polling soporta más tipos de datos."
+            ),
+            "WebSockets reduce la latencia y la sobrecarga al mantener una conexión persistente."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "81. ¿Qué ocurre si un proxy HTTP intermedio no entiende la solicitud de 'Upgrade' de WebSocket?",
+            Arrays.asList(
+                "La conexión WebSocket se establece de todas formas.",
+                "El proxy podría bloquear la conexión o interferir con ella.",
+                "La conexión se degrada automáticamente a HTTP Polling.",
+                "El servidor WebSocket negocia directamente con el cliente."
+            ),
+            "El proxy podría bloquear la conexión o interferir con ella."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "82. ¿WebSocket es un protocolo orientado a mensajes o a stream?",
+            Arrays.asList(
+                "Orientado a stream como TCP.",
+                "Orientado a mensajes (aunque puede fragmentar mensajes grandes).",
+                "Híbrido, depende del uso.",
+                "Ninguno de los anteriores."
+            ),
+            "Orientado a mensajes (aunque puede fragmentar mensajes grandes)."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "83. Al implementar un servidor WebSocket, ¿qué es importante gestionar correctamente para evitar fugas de recursos?",
+            Arrays.asList(
+                "Solo las conexiones entrantes.",
+                "El ciclo de vida de cada conexión WebSocket (apertura, mensajes, cierre, errores).",
+                "Únicamente los mensajes de texto.",
+                "La versión del protocolo."
+            ),
+            "El ciclo de vida de cada conexión WebSocket (apertura, mensajes, cierre, errores)."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "84. ¿Se pueden enviar encabezados HTTP personalizados una vez que la conexión WebSocket está establecida?",
+            Arrays.asList(
+                "Sí, con cada mensaje WebSocket.",
+                "No, los encabezados HTTP solo se usan durante el handshake inicial.",
+                "Solo si el servidor lo permite explícitamente.",
+                "Sí, pero solo para mensajes binarios."
+            ),
+            "No, los encabezados HTTP solo se usan durante el handshake inicial."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "85. En el contexto de WebSockets y Unity, si necesitas que la lógica de red no bloquee el hilo principal, ¿qué patrón es común utilizar con `async/await`?",
+            Arrays.asList(
+                "Llamar a `Task.Wait()` en el hilo principal.",
+                "Ejecutar las operaciones de red directamente en `Update()`.",
+                "Utilizar `ConfigureAwait(false)` en las llamadas `await` dentro de la lógica de red para evitar volver al contexto de Unity, y luego despachar las actualizaciones de UI al hilo principal.",
+                "Crear un `Thread` separado y usar `Thread.Sleep()`."
+            ),
+            "Utilizar `ConfigureAwait(false)` en las llamadas `await` dentro de la lógica de red para evitar volver al contexto de Unity, y luego despachar las actualizaciones de UI al hilo principal."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "86. ¿Qué propiedad de `WebSocketReceiveResult` te indica si el mensaje recibido fue de tipo texto, binario o un mensaje de cierre?",
+            Arrays.asList("Count", "EndOfMessage", "MessageType", "CloseStatusDescription"),
+            "MessageType"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "87. Si `ClientWebSocket.SendAsync` se llama múltiples veces de forma concurrente sin la debida sincronización, ¿qué podría ocurrir?",
+            Arrays.asList(
+                "Los mensajes se encolan y se envían ordenadamente de forma automática.",
+                "Podría lanzar excepciones o corromper los datos enviados, ya que las operaciones de envío en una misma instancia no suelen ser thread-safe para envíos concurrentes.",
+                "Se mejora la velocidad de envío.",
+                "Solo el primer mensaje se envía."
+            ),
+            "Podría lanzar excepciones o corromper los datos enviados, ya que las operaciones de envío en una misma instancia no suelen ser thread-safe para envíos concurrentes."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "88. ¿Es `ClientWebSocket` adecuado para implementar un servidor WebSocket?",
+            Arrays.asList(
+                "Sí, se puede usar para ambos roles.",
+                "No, `ClientWebSocket` está diseñado específicamente para el rol de cliente.",
+                "Solo si se modifica su código fuente.",
+                "Sí, pero con funcionalidad limitada."
+            ),
+            "No, `ClientWebSocket` está diseñado específicamente para el rol de cliente."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "89. ¿Qué mecanismo utilizan los WebSockets para asegurar que los datos no sean interceptados o modificados en tránsito cuando se usa `wss://`?",
+            Arrays.asList("Encriptación propia del protocolo WebSocket.", "TLS (Transport Layer Security), el mismo que HTTPS.", "Compresión de datos.", "Sumas de verificación (checksums) personalizadas."),
+            "TLS (Transport Layer Security), el mismo que HTTPS."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "90. Al recibir un mensaje de cierre (`WebSocketMessageType.Close`) del servidor, ¿qué debería hacer el cliente idealmente?",
+            Arrays.asList(
+                "Ignorar el mensaje y seguir enviando datos.",
+                "Confirmar el cierre enviando también una trama de cierre y luego cerrar la conexión.",
+                "Cerrar la conexión inmediatamente sin enviar nada.",
+                "Intentar reconectar automáticamente."
+            ),
+            "Confirmar el cierre enviando también una trama de cierre y luego cerrar la conexión."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "91. ¿Cuál es el puerto por defecto para `ws://`?",
+            Arrays.asList("8080", "443", "80", "21"),
+            "80"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "92. ¿Cuál es el puerto por defecto para `wss://`?",
+            Arrays.asList("80", "8443", "443", "22"),
+            "443"
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "93. ¿La librería `WebSocketSharp` es una implementación nativa de .NET o una librería de terceros?",
+            Arrays.asList(
+                "Es parte del framework .NET estándar.",
+                "Es una librería de terceros popular para C# que ofrece funcionalidades de cliente y servidor WebSocket.",
+                "Es un alias para `System.Net.WebSockets.ClientWebSocket`.",
+                "Solo funciona en entornos Mono."
+            ),
+            "Es una librería de terceros popular para C# que ofrece funcionalidades de cliente y servidor WebSocket."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "94. ¿Qué significa que una trama WebSocket esté 'enmascarada' (masked)?",
+            Arrays.asList(
+                "Que está encriptada.",
+                "Que los datos del payload han sido sometidos a una operación XOR con una clave de enmascaramiento de 32 bits. Es obligatorio para tramas cliente-a-servidor.",
+                "Que la trama está oculta para los proxies.",
+                "Que la trama es de alta prioridad."
+            ),
+            "Que los datos del payload han sido sometidos a una operación XOR con una clave de enmascaramiento de 32 bits. Es obligatorio para tramas cliente-a-servidor."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "95. ¿Deben las tramas enviadas del servidor al cliente estar enmascaradas?",
+            Arrays.asList(
+                "Sí, siempre.",
+                "No, nunca deben estar enmascaradas.",
+                "Es opcional.",
+                "Solo si se usa wss://."
+            ),
+            "No, nunca deben estar enmascaradas."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "96. ¿Qué sucede si un servidor recibe una trama no enmascarada de un cliente?",
+            Arrays.asList(
+                "El servidor la procesa normalmente.",
+                "El servidor debe cerrar la conexión porque es una violación del protocolo.",
+                "El servidor la enmascara y la reenvía.",
+                "El servidor solicita al cliente que la reenvíe enmascarada."
+            ),
+            "El servidor debe cerrar la conexión porque es una violación del protocolo."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "97. Para construir un servidor WebSocket en ASP.NET Core, ¿qué se suele utilizar?",
+            Arrays.asList(
+                "La clase `HttpListener` directamente.",
+                "Middleware de WebSockets integrado en ASP.NET Core.",
+                "`ClientWebSocket` configurado en modo escucha.",
+                "Servicios WCF con bindings especiales."
+            ),
+            "Middleware de WebSockets integrado en ASP.NET Core."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "98. En el contexto de `ClientWebSocket`, ¿para qué sirve `DefaultRequestHeaders`?",
+            Arrays.asList(
+                "Para añadir encabezados a los mensajes WebSocket después de la conexión.",
+                "Para añadir encabezados HTTP personalizados a la solicitud de handshake inicial.",
+                "Para definir el tipo de contenido de los mensajes.",
+                "Para configurar las opciones de encriptación."
+            ),
+            "Para añadir encabezados HTTP personalizados a la solicitud de handshake inicial."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "99. ¿Los WebSockets son adecuados para transferir archivos muy grandes (varios GB)?",
+            Arrays.asList(
+                "Sí, son ideales por su baja sobrecarga.",
+                "No, protocolos como FTP o HTTP con capacidades de reanudación son generalmente mejores para archivos muy grandes.",
+                "Solo si se fragmentan en mensajes de 1KB.",
+                "Únicamente sobre conexiones wss://."
+            ),
+            "No, protocolos como FTP o HTTP con capacidades de reanudación son generalmente mejores para archivos muy grandes."
+        ));
+        preguntasTestWebSockets.add(new PreguntaTest(
+            "100. ¿El cierre de una conexión TCP subyacente implica siempre el cierre limpio de la conexión WebSocket?",
+            Arrays.asList(
+                "Sí, el WebSocket se cierra limpiamente de forma automática.",
+                "No necesariamente. Un cierre abrupto de TCP (ej. por pérdida de red) no es un cierre limpio de WebSocket, que tiene su propio handshake de cierre.",
+                "Solo si el cliente inicia el cierre de TCP.",
+                "El protocolo WebSocket no depende de TCP para el cierre."
+            ),
+            "No necesariamente. Un cierre abrupto de TCP (ej. por pérdida de red) no es un cierre limpio de WebSocket, que tiene su propio handshake de cierre."
         ));
     }
 
